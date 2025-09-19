@@ -1,0 +1,10 @@
+# ignore libraries
+Libraries/*
+
+# ignore output files
+x64/*
+
+# ignore project files
+*.vcxproj
+*.filters
+*.user
