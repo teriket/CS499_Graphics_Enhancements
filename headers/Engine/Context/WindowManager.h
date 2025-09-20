@@ -7,7 +7,8 @@
 * This code is responsible for creating and maintaining the window from which the application takes place.
 *
 */
-#pragma once
+#ifndef WINDOWMANAGER_H
+#define WINDOWMANAGER_H
 
 #include <iostream>
 #include "GLFW/glfw3.h"  // library that manages window creation
@@ -15,16 +16,31 @@
 class WindowManager
 {
 public:
-	// constructor & destructor
-	WindowManager();
+	//destructor
 	~WindowManager();
 
+	//singleton access for this class
+	static WindowManager* getInstance();
+
+	//checks whether a window exists for this app, and
+	//creates one if it doesn't.  Returns the app window
+	GLFWwindow* getWindow();
+
 private:
-	// active OpenGL display window
-	GLFWwindow* app_window;
+	//constructor private for singleton access
+	WindowManager();
 
-public:
-	// create the initial OpenGL display window
-	GLFWwindow* CreateDisplayWindow(const char* windowTitle);
+	//this method is called when a window does not exist
+	GLFWwindow* createWindow();
 
+	// the active OpenGL display window
+	GLFWwindow* appWindow;
+	// singleton instance of this class
+	static WindowManager* instance;
+
+	const char* WINDOW_TITLE = "CS499 Graphics Enhancements";
+	const int WINDOW_WIDTH = 1000;
+	const int WINDOW_HEIGHT = 800;
 };
+
+#endif

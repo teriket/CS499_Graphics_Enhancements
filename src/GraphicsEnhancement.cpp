@@ -4,7 +4,7 @@
 * SNHU CS499 Computer Science Capstone
 * 
 * Purpose: 
-* This is the entry point to the program, which will setup the necessary libraries and initialize the game context (the window, user inputs, rendering loop)
+* This is the entry point to the program, which will setup the necessary libraries and initialize the game context
 * 
 * Attributions:
 * initGLFW() provided by SNHU (no author)
@@ -17,13 +17,11 @@
 #include <GLFW/glfw3.h> // "graphics library framework," for window cration and input handeling
 
 #include <Context/WindowManager.h>
+#include <SceneManagement/GameManager.h>
 
 // predeclare methods
 bool initGLFW();
 bool initGLEW();
-
-// methods used in this file
-const char* WINDOW_TITLE = "SNHU CS499 GRAPHICS ENHANCEMENTS";
 
 int main()
 {
@@ -31,30 +29,24 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	WindowManager* windowManager = new WindowManager();
-	GLFWwindow* window = windowManager->CreateDisplayWindow(WINDOW_TITLE);
+	WindowManager* windowManager = WindowManager::getInstance();
+	GLFWwindow* window = windowManager->getWindow();
 
 	if (!initGLEW()) {
 		return EXIT_FAILURE;
 	}
 
-	while (!glfwWindowShouldClose(window)) {
-		// Enable z-depth
-		glEnable(GL_DEPTH_TEST);
+	GameManager* gameManager = new GameManager();
 
-		// Clear the frame and z buffers
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	while (!glfwWindowShouldClose(window)) {
+		
+		gameManager->engineUpdate();
 
 		// convert from 3D object space to 2D view
 		//g_ViewManager->PrepareSceneView();
 
 		// refresh the 3D scene
 		//g_SceneManager->RenderScene();
-
-
-		// Flips the the back buffer with the front buffer every frame.
-		glfwSwapBuffers(window);
 
 		// query the latest GLFW events
 		glfwPollEvents();

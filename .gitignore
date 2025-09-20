@@ -8,3 +8,6 @@ x64/*
 *.vcxproj
 *.filters
 *.user
+
+# ignore debug logs
+Debug/*
