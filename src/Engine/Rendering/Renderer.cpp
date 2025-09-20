@@ -18,3 +18,7 @@ void Renderer::draw() {
 	// refresh the 3D scene
 	//g_SceneManager->RenderScene();
 }
+
+void Renderer::prepareSceneView() {
+
+}

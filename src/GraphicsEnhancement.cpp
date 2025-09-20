@@ -25,26 +25,32 @@ bool initGLEW();
 
 int main()
 {
+	// Initialize libraries
 	if (!initGLFW()) {
 		return EXIT_FAILURE;
 	}
 
+	// make the window
 	WindowManager* windowManager = WindowManager::getInstance();
 	GLFWwindow* window = windowManager->getWindow();
 
+	// Initialize the other libraries
 	if (!initGLEW()) {
 		return EXIT_FAILURE;
 	}
 
+	// Setup the game
 	GameManager* gameManager = new GameManager();
 
+	// Run the core loop the engine runs on
 	while (!glfwWindowShouldClose(window)) {
-		
 		gameManager->engineUpdate();
-
-		// query the latest GLFW events
-		glfwPollEvents();
 	}
+
+	// The game is quitting, free up memory
+	delete gameManager;
+
+	exit(EXIT_SUCCESS);
 }
 
 /**

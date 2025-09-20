@@ -1,5 +1,20 @@
+/** FILE DESCRIPTION
+* author: Tanner Hunt
+* date: 09/20/2025
+* SNHU CS499 Computer Science Capstone
+*
+* Purpose:
+* The primary thread the application runs on.  This code
+* manages the loop of updating the scene, accepting user
+* inputs, and rendering.  The context of the application
+* also lives here, including the time and active scene.
+*
+*/
+
 #pragma once
+#include <SceneManagement/Scene.h>
 #include <Rendering/Renderer.h>
+#include <Context/InputManager.h>
 
 class GameManager
 {
@@ -9,21 +24,24 @@ private:
 	void onUpdate();
 	void onPhysicsUpdate();
 	void render();
+	void handleInputs();
+	void setTime();
 
-	Renderer* renderer = nullptr;
+	Renderer* renderer;
+	InputManager* inputManager;
+	float time;
+	float lastFrameTime;
+	float deltaTime;
+	Scene* currentScene;
 
 public:
 	GameManager();
 	~GameManager();
 	
+	Scene* getActiveScene();
+
 	// the central loop that application runs from, including rendering, physics, object updates
 	void engineUpdate();
-
-	// COMMENT:
-	// Time may eventually need to live in it's own class so it can handle functions
-	// like limiting frame rate, slowing or speeding up time, pausing etc.  At this 
-	// juncture,the current implementation is OK because there is no need for added
-	// complexity to this refactor
 	float getDeltaTime();
 	float getTime();
 };
