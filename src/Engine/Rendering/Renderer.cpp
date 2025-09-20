@@ -10,4 +10,11 @@ void Renderer::draw() {
 
 	// Flips the the back buffer with the front buffer every frame.
 	glfwSwapBuffers(WindowManager::getInstance()->getWindow());
+
+
+	// convert from 3D object space to 2D view
+	//g_ViewManager->PrepareSceneView();
+
+	// refresh the 3D scene
+	//g_SceneManager->RenderScene();
 }

@@ -42,12 +42,6 @@ int main()
 		
 		gameManager->engineUpdate();
 
-		// convert from 3D object space to 2D view
-		//g_ViewManager->PrepareSceneView();
-
-		// refresh the 3D scene
-		//g_SceneManager->RenderScene();
-
 		// query the latest GLFW events
 		glfwPollEvents();
 	}
