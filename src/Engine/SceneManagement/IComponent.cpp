@@ -1,1 +1,1 @@
-#include "../../../headers/Engine/SceneManagement/IComponent.h"
+#include <SceneManagement/IComponent.h>

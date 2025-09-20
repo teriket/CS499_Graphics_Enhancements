@@ -1,1 +1,1 @@
-#include "../../../headers/Engine/SceneManagement/GameManager.h"
+#include <SceneManagement/GameManager.h>
