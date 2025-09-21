@@ -1,16 +1,8 @@
-﻿  InputManager.cpp
-C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': macro redefinition
-  (compiling source file 'src/Engine/Context/InputManager.cpp')
-      C:\Users\woodl\OneDrive\Documents\School\SNHU CS499 Computer Science Capstone\GraphicsWorkspace\src\GraphicsEnhancement\GraphicsEnhancement\Libraries\GLFW\include\GLFW\glfw3.h(123,11):
-      see previous definition of 'APIENTRY'
-  
-C:\Users\woodl\OneDrive\Documents\School\SNHU CS499 Computer Science Capstone\GraphicsWorkspace\src\GraphicsEnhancement\GraphicsEnhancement\src\Engine\Context\InputManager.cpp(71,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\woodl\OneDrive\Documents\School\SNHU CS499 Computer Science Capstone\GraphicsWorkspace\src\GraphicsEnhancement\GraphicsEnhancement\src\Engine\Context\InputManager.cpp(72,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\woodl\OneDrive\Documents\School\SNHU CS499 Computer Science Capstone\GraphicsWorkspace\src\GraphicsEnhancement\GraphicsEnhancement\src\Engine\Context\InputManager.cpp(83,39): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+﻿  GameObject.cpp
+  Scene.cpp
   GameManager.cpp
 C:\Users\woodl\OneDrive\Documents\School\SNHU CS499 Computer Science Capstone\GraphicsWorkspace\src\GraphicsEnhancement\GraphicsEnhancement\src\Engine\SceneManagement\GameManager.cpp(9,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\woodl\OneDrive\Documents\School\SNHU CS499 Computer Science Capstone\GraphicsWorkspace\src\GraphicsEnhancement\GraphicsEnhancement\src\Engine\SceneManagement\GameManager.cpp(73,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  Scene.cpp
   GraphicsEnhancement.cpp
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.22621.0\shared\minwindef.h(130,9): warning C4005: 'APIENTRY': macro redefinition
   (compiling source file 'src/GraphicsEnhancement.cpp')

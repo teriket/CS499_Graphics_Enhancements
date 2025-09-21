@@ -5,8 +5,6 @@
 *
 * Purpose:
 * 
-*
-* Attributions:
 */
 
 #include <SceneManagement/Scene.h>

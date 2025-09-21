@@ -11,6 +11,7 @@
 #define WINDOWMANAGER_H
 
 #include <iostream>
+#include <GL/glew.h>
 #include "GLFW/glfw3.h"  // library that manages window creation
 
 class WindowManager
