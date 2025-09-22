@@ -4,11 +4,9 @@
 * SNHU CS499 Computer Science Capstone
 *
 * Purpose:
-* The primary thread the application runs on.  This code
-* manages the loop of updating the scene, accepting user
-* inputs, and rendering.  The context of the application
-* also lives here, including the time and active scene.
-*
+* The logic that manages the central loop of the
+* engine, including updating objects, rendering,
+* scene management, user inputs, physics updates.
 */
 
 #pragma once
@@ -18,23 +16,8 @@
 
 class GameManager
 {
-private:
-	// private constructor for singleton access
-	void onStart();
-	void onUpdate();
-	void onPhysicsUpdate();
-	void render();
-	void handleInputs();
-	void setTime();
-
-	Renderer* renderer;
-	InputManager* inputManager;
-	float time;
-	float lastFrameTime;
-	float deltaTime;
-	Scene* currentScene;
-
 public:
+	//TODO: Make singleton
 	GameManager();
 	~GameManager();
 	
@@ -44,5 +27,21 @@ public:
 	void engineUpdate();
 	float getDeltaTime();
 	float getTime();
+
+private:
+	void onStart();
+	void onUpdate();
+	void onPhysicsUpdate();
+	void render();
+	void handleInputs();
+	void setTime();
+	void setScene(Scene* t_scene);
+
+	Renderer* renderer;
+	InputManager* inputManager;
+	float time;
+	float lastFrameTime;
+	float deltaTime;
+	Scene* currentScene;
 };
 

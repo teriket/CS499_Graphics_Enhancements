@@ -4,8 +4,8 @@
 * SNHU CS499 Computer Science Capstone
 *
 * Purpose:
-* The interface that all components should
-* derive from
+* The XYZ position, rotation, and scale attached
+* to every gameobject.
 */
 
-#include <SceneManagement/IComponent.h>
+#include <SceneManagement/Transform.h>

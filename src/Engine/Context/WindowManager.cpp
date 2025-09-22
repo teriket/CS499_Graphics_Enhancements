@@ -1,3 +1,13 @@
+/** FILE DESCRIPTION
+* author: Tanner Hunt
+* date: 09/20/2025
+* SNHU CS499 Computer Science Capstone
+*
+* Purpose:
+* Create and manage the window the application
+* lives inside
+*/
+
 #include <Context/WindowManager.h>
 
 WindowManager::WindowManager() {}
@@ -5,11 +15,17 @@ WindowManager::WindowManager() {}
 //the static instance of this class
 WindowManager* WindowManager::instance = nullptr;
 
+/**
+* Destructor
+*/
 WindowManager::~WindowManager()
 {
-	this->appWindow = nullptr;
+	delete this->appWindow;
 }
 
+/**
+* @return Singleton access for this class
+*/
 WindowManager* WindowManager::getInstance() {
 	if (instance == nullptr) {
 		instance = new WindowManager();

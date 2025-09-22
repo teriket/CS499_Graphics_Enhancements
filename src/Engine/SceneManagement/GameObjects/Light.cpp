@@ -4,8 +4,7 @@
 * SNHU CS499 Computer Science Capstone
 *
 * Purpose:
-* The interface that all components should
-* derive from
+* A component that can be attached to gameobjects
+* that renders a point light
 */
-
-#include <SceneManagement/IComponent.h>
+#include <SceneManagement/Light.h>

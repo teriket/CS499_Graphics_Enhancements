@@ -1,3 +1,13 @@
+/** FILE DESCRIPTION
+* author: Tanner Hunt
+* date: 09/20/2025
+* SNHU CS499 Computer Science Capstone
+*
+* Purpose:
+* provides an interface for gameobjects to receive
+* user input data
+*/
+
 #pragma once
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -31,4 +41,5 @@ private:
 	double yMousePos;
 	double xLastMousePos;
 	double yLastMousePos;
+
 };

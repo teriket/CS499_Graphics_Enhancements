@@ -1,4 +1,15 @@
+/** FILE DESCRIPTION
+* author: Tanner Hunt
+* date: 09/20/2025
+* SNHU CS499 Computer Science Capstone
+*
+* Purpose:
+* provides an interface for gameobjects to receive
+* user input data
+*/
+
 #include <Context/InputManager.h>
+#include <iostream>
 /**
 * singleton instance of this class
 */
@@ -12,12 +23,15 @@ InputManager* InputManager::instance = nullptr;
 InputManager::InputManager() {
 	appWindow = WindowManager::getInstance()->getWindow();
 	
-	bool firstMouseMovement = false;
-	double xMousePos = 0;
-	double yMousePos = 0;
-	double xLastMousePos = 0;
-	double yLastMousePos = 0;
-	Camera* camera = new Camera();
+	// TODO: variables for the camera that should be deleted when the dependency is properly isolated
+	firstMouseMovement = false;
+	xMousePos = 0;
+	yMousePos = 0;
+	xLastMousePos = 0;
+	yLastMousePos = 0;
+	camera = new Camera();
+
+
 }
 
 
@@ -58,15 +72,14 @@ void InputManager::setCallbacks(){
 
 void InputManager::mousePositionCallback(GLFWwindow* window, double xMousePos, double yMousePos) {
 	// when the first mouse move event is received, this needs to be recorded so that
-// all subsequent mouse moves can correctly calculate the X position offset and Y
-// position offset for proper operation
+	// all subsequent mouse moves can correctly calculate the X position offset and Y
+	// position offset for proper operation
 	if (instance->firstMouseMovement)
 	{
 		instance->xLastMousePos = xMousePos;
 		instance->yLastMousePos = yMousePos;
 		instance->firstMouseMovement = false;
 	}
-
 	// calculate the X offset and Y offset values for moving the 3D camera accordingly
 	float xOffset = instance->xMousePos - instance->xLastMousePos;
 	float yOffset = instance->yLastMousePos - instance->yMousePos; // reversed since y-coordinates go from bottom to top
@@ -80,7 +93,9 @@ void InputManager::mousePositionCallback(GLFWwindow* window, double xMousePos, d
 }
 
 void InputManager::scrollWheelCallback(GLFWwindow* window, double xOffset, double yOffset) {
-	instance->camera->ProcessMouseScroll(-yOffset);
+	if (instance->camera != nullptr) {
+		instance->camera->ProcessMouseScroll(-yOffset);
+	}
 }
 
 void InputManager::processKeyboardEvents() {

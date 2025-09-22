@@ -12,10 +12,11 @@ and the full license
 https://creativecommons.org/licenses/by-nc/4.0/legalcode
 */
 
-
+// TODO: refactor this class into a GameObject
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <iostream>
 #include <windows.h>
 #include <GL/glew.h>
 #include <GL/GL.h>
@@ -68,6 +69,7 @@ public:
         Yaw = yaw;
         Pitch = pitch;
         updateCameraVectors();
+
     }
     // constructor with scalar values
     Camera(float posX, float posY, float posZ, float upX, float upY, float upZ, float yaw, float pitch) : Front(glm::vec3(0.0f, 0.0f, -1.0f)), MovementSpeed(SPEED), MouseSensitivity(SENSITIVITY), Zoom(ZOOM)
@@ -77,6 +79,7 @@ public:
         Yaw = yaw;
         Pitch = pitch;
         updateCameraVectors();
+
     }
 
     // returns the view matrix calculated using Euler Angles and the LookAt Matrix
@@ -106,6 +109,7 @@ public:
     // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
     void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true)
     {
+        std::cout << xoffset << std::endl;
         xoffset *= MouseSensitivity;
         yoffset *= MouseSensitivity;
 
@@ -128,6 +132,7 @@ public:
     // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
     void ProcessMouseScroll(float yoffset)
     {
+        std::cout << yoffset;
         MovementSpeed -= (float)yoffset;
         if (MovementSpeed < 0.1f)
             MovementSpeed = 0.1f;

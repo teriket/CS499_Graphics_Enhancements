@@ -1,3 +1,13 @@
+/** FILE DESCRIPTION
+* author: SNHU
+*
+* Purpose:
+* load shader files
+* 
+* Attributions:
+* Code provided by SNHU CS330
+*/
+
 #include <Rendering/ShaderManager.h>
 #include <stdio.h>
 #include <string>
