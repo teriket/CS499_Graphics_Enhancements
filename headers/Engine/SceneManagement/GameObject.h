@@ -50,6 +50,7 @@ public:
 	GameObject* getParent();
 	vector<GameObject*> getChildren();
 	GameObject* addChild(GameObject* t_child);
+	vector<IComponent*> getComponents();
 
 private:
 	vector<IComponent*> components;

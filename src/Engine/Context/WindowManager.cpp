@@ -75,3 +75,10 @@ GLFWwindow* WindowManager::getWindow() {
 	return appWindow;
 }
 
+int WindowManager::getWindowHeight() {
+	return WINDOW_HEIGHT;
+}
+
+int WindowManager::getWindowWidth() {
+	return WINDOW_WIDTH;
+}

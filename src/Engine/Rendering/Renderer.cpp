@@ -18,6 +18,7 @@
 */
 Renderer::Renderer() {
 	shaderManager = new ShaderManager();
+	meshManager = new MeshManager();
 }
 
 /**
@@ -33,6 +34,7 @@ void Renderer::draw() {
 
 	findObjectsToBeRendered();
 	pushCameraDataToShader();
+	setupLights();
 	renderObject();
 
 	// Flips the the back buffer with the front buffer every frame.
@@ -95,6 +97,18 @@ void Renderer::changeScene(Scene* t_scene) {
 * the camera is using
 */
 void Renderer::pushCameraDataToShader() {
+	if (shaderManager != nullptr && activeScene != nullptr && activeScene->activeCamera != nullptr) {
+		//TODO: move the projection to the camera.  The camera needs to be refactored anyways
+		glm::mat4 projection = glm::perspective(
+			glm::radians(activeScene->activeCamera->Zoom), 
+			(GLfloat)WindowManager::getInstance()->getWindowWidth() / (GLfloat)WindowManager::getInstance()->getWindowHeight(),
+			0.1f, 
+			100.0f);
+
+		shaderManager->setMat4Value("view", activeScene->activeCamera->GetViewMatrix());
+		shaderManager->setMat4Value("projection", projection);
+		shaderManager->setVec3Value("viewPosition", activeScene->activeCamera->Position);
+	}
 	//PSEUDOCODE based on old projects algorithm
 	//get camera view matrix
 	// if shader manager is not null
@@ -111,6 +125,15 @@ void Renderer::pushCameraDataToShader() {
 void Renderer::renderObject() {
 	// draw each object that has mesh data attached to it
 	for (GameObject* gameObject : objectsToRender) {
+		meshManager
+			->setMesh(gameObject->getComponentOfType<Mesh>())
+			->loadModel()
+			->bindMeshData();
+
+			//TODO: refactor mesh code into this algorithm.  Currently, mesh manager
+			// is doing all the work, and texture files have to follow certain
+			// naming conventions to be drawn
+			// 
 			// mesh may have none or one material attached to it
 			
 			// Mesh may have no, one, or multiple textures attached to it
@@ -163,3 +186,36 @@ void Renderer::setMesh() {}
 * send the material data to the shader for rendering
 */
 void Renderer::setMaterial() {}
+
+void Renderer::setupLights() {
+	vector<GameObject*> objects;
+	vector<Light*> lights;
+
+	// look for all the lights in the scene
+	objects.push_back(activeScene->getRootGameObject());
+	while (objects.size() > 0) {
+		
+		vector<Light*> object_components = objects[0]->getComponentsOfType<Light>();
+		for (Light* light : object_components) {
+			lights.push_back(light);
+		}
+		for (GameObject* child : objects[0]->getChildren()) {
+			objects.push_back(child);
+		}
+
+		objects.erase(objects.begin());
+	}
+
+	//send all the lights to the shader
+	for (unsigned int i = 0; i < lights.size(); i++) {
+		string fieldName = "lightSources[" + std::to_string(i) + "].";
+		Transform transform = lights[i]->getParentGameObject()->transform;
+
+		shaderManager->setVec3Value(fieldName + "position", transform.xPos, transform.yPos, transform.zPos);
+		shaderManager->setVec3Value(fieldName + "ambientColor", lights[i]->ambientColor[0], lights[i]->ambientColor[1], lights[i]->ambientColor[2]);
+		shaderManager->setVec3Value(fieldName + "diffuseColor", lights[i]->diffuseColor[0], lights[i]->diffuseColor[1], lights[i]->diffuseColor[2]);
+		shaderManager->setVec3Value(fieldName + "specularColor", lights[i]->specularColor[0], lights[i]->specularColor[1], lights[i]->specularColor[2]);
+		shaderManager->setFloatValue(fieldName + "focalStrength", lights[i]->focalStrength);
+		shaderManager->setFloatValue(fieldName + "focalStrength", lights[i]->specularIntensity);
+	}
+}

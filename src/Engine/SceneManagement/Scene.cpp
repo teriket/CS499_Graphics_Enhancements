@@ -17,7 +17,7 @@ Scene::Scene() {
 	rootNode = new GameObject();
 
 	//TODO remove this line, for testing purposes
-	rootNode->addComponent(new Mesh());
+	//rootNode->addComponent(new Mesh());
 }
 
 /**

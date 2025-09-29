@@ -13,8 +13,13 @@
 
 #pragma once
 #include <GL/glew.h> // glew is a diva and will throw errors if it's not included before GLFW, even if it isn't being used
+
 #include <GLFW/glfw3.h> // "graphics library framework," for window cration and input handeling
-#include <Context/WindowManager.h>
+
+// math libraries for matrix manipulation
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 // managers that the Renderer dispatches tasks to
 #include <Rendering/ShaderManager.h>
@@ -25,7 +30,10 @@
 #include <SceneManagement/Mesh.h>
 #include <SceneManagement/Texture.h>
 #include <SceneManagement/Material.h>
+#include <SceneManagement/Light.h>
 
+// The context the renderer lives in
+#include <Context/WindowManager.h>
 #include <SceneManagement/Scene.h>
 
 #include <vector>
@@ -43,6 +51,8 @@ public:
 
 private:
 	ShaderManager* shaderManager;
+	MeshManager* meshManager;
+
 	Scene* activeScene;
 	vector<GameObject*> objectsToRender;
 
@@ -56,6 +66,6 @@ private:
 	void setSahderTransformations();
 	void setMesh();
 	void setMaterial();
-
+	void setupLights();
 };
 

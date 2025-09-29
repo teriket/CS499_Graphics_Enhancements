@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <GL/glew.h>
+
 #include "GLFW/glfw3.h"  // library that manages window creation
 
 class WindowManager
@@ -26,6 +27,8 @@ public:
 	//checks whether a window exists for this app, and
 	//creates one if it doesn't.  Returns the app window
 	GLFWwindow* getWindow();
+	int getWindowWidth();
+	int getWindowHeight();
 
 private:
 	//constructor private for singleton access

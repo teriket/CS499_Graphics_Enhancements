@@ -18,6 +18,7 @@ public:
 	float focalStrength; // how bright the light is
 	float specularIntensity; // how sharp the bright spot is
 
+
 private:
 };
 

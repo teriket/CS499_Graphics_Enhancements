@@ -10,8 +10,22 @@
 #pragma once
 class IComponent
 {
+public:
 	virtual void onStart() {};
 	virtual void onUpdate() {};
 	virtual void onPhysicsUpdate() {};
+	
+	
+	virtual GameObject* getParentGameObject() {
+		return parent;
+	}
+
+	virtual void setParent(GameObject* go) {
+		parent = go;
+	}
+
+	bool onStart_was_called = false;
+private:
+	GameObject* parent;
 };
 

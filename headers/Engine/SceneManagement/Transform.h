@@ -9,7 +9,7 @@
 */
 
 #pragma once
-class Transform
+class Transform : public IComponent
 {
 public:
 	float xPos, yPos, zPos;

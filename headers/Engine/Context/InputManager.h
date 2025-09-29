@@ -10,6 +10,7 @@
 
 #pragma once
 #include <GL/glew.h>
+
 #include <GLFW/glfw3.h>
 #include <Context/WindowManager.h>
 #include <SceneManagement/Camera.h>

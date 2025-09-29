@@ -16,7 +16,7 @@ using namespace std;
 class Texture : public IComponent
 {
 public:
-	int textureID;
+	unsigned int textureID;
 	string name;
 	string path;
 

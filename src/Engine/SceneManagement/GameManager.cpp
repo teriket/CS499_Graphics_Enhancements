@@ -65,9 +65,25 @@ void GameManager::engineUpdate() {
 * method if they haven't been initialized.
 */
 void GameManager::onStart() {
-	// TODO: Iterate through all objects in the current scene.
-	// For each IComponent attached to them, if they've been initialized,
-	// pass, otherwise call onStart() for that component
+	vector<GameObject*> objects;
+	objects.push_back(currentScene->getRootGameObject());
+	// iterate over each gameobject and check if its components have been initialized
+	// one alternative implementation would be to have onStart() called on component
+	// creation.  This implementation has a time complexity of O(# components in scene),
+	// but is potentially safer because onstart is called after scene objects have
+	// been instantiated, which may protect the game from null pointer exceptions
+	for (GameObject* object : objects) {
+		for (IComponent* component : object->getComponents()) {
+			if (!component->onStart_was_called) {
+				component->onStart();
+			}
+		}
+		// add the game objects children to reach all the objects in the scene.
+		for (GameObject* child : object->getChildren()) {
+			objects.push_back(child);
+		}
+
+	}
 }
 
 void GameManager::handleInputs() {
@@ -82,7 +98,20 @@ void GameManager::handleInputs() {
 * and activate their onUpdate() method.
 */
 void GameManager::onUpdate() {
-	//function stub, to be implemented in Enhancement 2
+	vector<GameObject*> objects;
+	objects.push_back(currentScene->getRootGameObject());
+
+	for (GameObject* object : objects) {
+		// update each component
+		for (IComponent* component : object->getComponents()) {
+			component->onUpdate();
+		}
+		// add the game objects children to reach all the objects in the scene.
+		for (GameObject* child : object->getChildren()) {
+			objects.push_back(child);
+		}
+
+	}
 }
 
 /**

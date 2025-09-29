@@ -109,7 +109,6 @@ public:
     // processes input received from a mouse input system. Expects the offset value in both the x and y direction.
     void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true)
     {
-        std::cout << xoffset << std::endl;
         xoffset *= MouseSensitivity;
         yoffset *= MouseSensitivity;
 
@@ -132,7 +131,6 @@ public:
     // processes input received from a mouse scroll-wheel event. Only requires input on the vertical wheel-axis
     void ProcessMouseScroll(float yoffset)
     {
-        std::cout << yoffset;
         MovementSpeed -= (float)yoffset;
         if (MovementSpeed < 0.1f)
             MovementSpeed = 0.1f;

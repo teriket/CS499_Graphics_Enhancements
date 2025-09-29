@@ -5,14 +5,24 @@
 *
 * Purpose:
 * A component that can be attached to gameobjects
-* that stores mesh data
+* that stores vertex, line, and face data of a mesh
 */
 
 #pragma once
 #include <SceneManagement/IComponent.h>
-#include <vector>
+#include <SceneManagement/Texture.h>
+
+// vertex binding and vertex array object binding
+#include <GL/glew.h>
+
+// math libraries
 #include <glm/vec3.hpp>
 #include <glm/vec2.hpp>
+
+// standard library imports
+#include <vector>
+#include <string>
+
 
 using namespace std;
 struct Vertex {
@@ -26,16 +36,17 @@ class Mesh : public IComponent
 public:
 	vector<Vertex> vertices;
 	vector<unsigned int> indices;
+	vector<Texture> textures;
+	vector<Texture> loadedTextures;
+	string filePath;
 
-	//Mesh(vector<Vertex> vertices, vector<unsigned int> indices);
-	Mesh();
+	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
 
-private:
-	// rendering data
-	unsigned int VBO, EBO;
-
-	// setup buffer objects and arrays
-	void initMesh();
+	// rendering data: vertex buffer object (VBO) contains arrays
+	// of vertex data.  Vertex array objects (VAO) contains details
+	// about the VBO for the shader, element buffer object (EBO)
+	// stores indices to vertices
+	unsigned int VAO, VBO, EBO;
 
 };
 
