@@ -1,6 +1,6 @@
 #pragma once
 #include <SceneManagement/Transform.h>
-#include <SceneManagement/IComponent.h>
+
 #include <vector>
 #include <typeinfo>
 #include <string>
@@ -8,10 +8,12 @@
 #include <algorithm>
 
 using namespace std;
+class IComponent;
 class GameObject
 {
 public:
 	~GameObject();
+	GameObject();
 	// position, rotation, scale
 	Transform transform;
 

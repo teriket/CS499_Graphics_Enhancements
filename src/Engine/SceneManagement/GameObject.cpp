@@ -9,6 +9,9 @@
 * will be updated every frame the engine runs.
 */
 #include <SceneManagement/GameObject.h>
+#include <SceneManagement/IComponent.h>
+#include <SceneManagement/Transform.h>
+
 GameObject::GameObject() {
 	addComponent(new Transform());
 }

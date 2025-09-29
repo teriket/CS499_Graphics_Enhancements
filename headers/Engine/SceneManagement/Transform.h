@@ -7,8 +7,8 @@
 * The xyz coordinates, rotation, and scale
 * commonly attached to objects
 */
-
 #pragma once
+#include <SceneManagement/IComponent.h>
 class Transform : public IComponent
 {
 public:

@@ -9,3 +9,4 @@
 */
 
 #include <SceneManagement/IComponent.h>
+#include <SceneManagement/GameObject.h>

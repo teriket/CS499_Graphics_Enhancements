@@ -7,7 +7,9 @@
 * The base class all game functionality should
 * be attached to for the ECS.  
 */
+
 #pragma once
+class GameObject;
 class IComponent
 {
 public:
@@ -25,7 +27,6 @@ public:
 	}
 
 	bool onStart_was_called = false;
-private:
-	GameObject* parent;
+	GameObject* parent = nullptr;
 };
 
