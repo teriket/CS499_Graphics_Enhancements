@@ -26,3 +26,15 @@ Scene::Scene() {
 GameObject* Scene::getRootGameObject() {
 	return rootNode;
 }
+
+void Scene::buildDemoScene() {
+	GameObject* model = new GameObject();
+	GameObject* light = new GameObject();
+
+	//model->addComponent(new Mesh());
+
+	
+
+	rootNode->addChild(model);
+	rootNode->addChild(light);
+}

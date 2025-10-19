@@ -20,6 +20,7 @@ class Scene
 public:
 	Scene();
 	GameObject* getRootGameObject();
+	void buildDemoScene();
 	
 	Camera* activeCamera;
 	string sceneName;

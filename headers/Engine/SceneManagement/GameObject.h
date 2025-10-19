@@ -53,6 +53,9 @@ public:
 	vector<GameObject*> getChildren();
 	GameObject* addChild(GameObject* t_child);
 	vector<IComponent*> getComponents();
+	int getDepth();
+	void setDepth();
+	void setParent(GameObject* t_parent);
 
 private:
 	vector<IComponent*> components;
@@ -61,5 +64,11 @@ private:
 	GameObject* parent;
 	vector<GameObject*> children;
 
+	// how deep in the scene tree this object is
+	int depth = 0;
+	// Deeply nested objects risks stack overflow exceptions when sharing levels between users.
+	// 256 is a generous depth that isn't expected to be reached in a scene
+	// except by malicious users attempting such an attack
+	const int MAX_OBJECT_DEPTH = 256;
 };
 

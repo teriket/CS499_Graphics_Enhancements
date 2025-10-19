@@ -29,7 +29,7 @@ void Renderer::draw() {
 	glEnable(GL_DEPTH_TEST);
 
 	// Clear the frame and z buffers
-	glClearColor(0.0f, 0.0f, 0.7f, 1.0f);
+	glClearColor(0.882f, 0.890f, 0.898f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	findObjectsToBeRendered();
