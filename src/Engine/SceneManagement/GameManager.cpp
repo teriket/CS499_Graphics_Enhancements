@@ -65,7 +65,7 @@ void GameManager::engineUpdate() {
 * method if they haven't been initialized.
 */
 void GameManager::onStart() {
-	vector<GameObject*> objects;
+	std::vector<GameObject*> objects;
 	objects.push_back(currentScene->getRootGameObject());
 	// iterate over each gameobject and check if its components have been initialized
 	// one alternative implementation would be to have onStart() called on component
@@ -98,7 +98,7 @@ void GameManager::handleInputs() {
 * and activate their onUpdate() method.
 */
 void GameManager::onUpdate() {
-	vector<GameObject*> objects;
+	std::vector<GameObject*> objects;
 	objects.push_back(currentScene->getRootGameObject());
 
 	for (GameObject* object : objects) {

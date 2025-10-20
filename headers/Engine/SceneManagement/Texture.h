@@ -12,16 +12,15 @@
 #include <SceneManagement/IComponent.h>
 #include <string>
 
-using namespace std;
 class Texture : public IComponent
 {
 public:
 	unsigned int textureID;
-	string name;
-	string path;
+	std::string name;
+	std::string path;
 
 	// type of texture, i.e. normal, bump, etc.
-	string type; // consider converting to enum
+	std::string type; // consider converting to enum
 
 private:
 };

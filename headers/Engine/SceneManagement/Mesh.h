@@ -24,7 +24,6 @@
 #include <string>
 
 
-using namespace std;
 struct Vertex {
 	glm::vec3 position;
 	glm::vec3 normal;
@@ -34,13 +33,14 @@ struct Vertex {
 class Mesh : public IComponent
 {
 public:
-	vector<Vertex> vertices;
-	vector<unsigned int> indices;
-	vector<Texture> textures;
-	vector<Texture> loadedTextures;
-	string filePath;
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	std::vector<Texture> textures;
+	std::vector<Texture> loadedTextures;
+	std::string filePath;
 
-	Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures);
+	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures);
+	Mesh(std::string path);
 
 	// rendering data: vertex buffer object (VBO) contains arrays
 	// of vertex data.  Vertex array objects (VAO) contains details

@@ -15,6 +15,7 @@
 Scene::Scene() {
 	activeCamera = new Camera();
 	rootNode = new GameObject();
+	std::cout << "About to build the demo scene" << std::endl;
 
 	//TODO remove this line, for testing purposes
 	//rootNode->addComponent(new Mesh());
@@ -25,16 +26,4 @@ Scene::Scene() {
 */
 GameObject* Scene::getRootGameObject() {
 	return rootNode;
-}
-
-void Scene::buildDemoScene() {
-	GameObject* model = new GameObject();
-	GameObject* light = new GameObject();
-
-	//model->addComponent(new Mesh());
-
-	
-
-	rootNode->addChild(model);
-	rootNode->addChild(light);
 }

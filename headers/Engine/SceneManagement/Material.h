@@ -12,7 +12,6 @@
 #include <SceneManagement/IComponent.h>
 #include <string>
 
-using namespace std;
 class Material : public IComponent
 {
 public:
@@ -21,7 +20,7 @@ public:
 	float diffuseColor[3]; // The color of the material when light hits it
 	float specularColor[3]; // the color of the highlight on a mesh
 	float shininess;
-	string tag; // the name of this material
+	std::string tag; // the name of this material
 
 private:
 

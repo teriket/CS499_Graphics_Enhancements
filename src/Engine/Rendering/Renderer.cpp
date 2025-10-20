@@ -12,12 +12,19 @@
 */
 
 #include <Rendering/Renderer.h>
+#include <filesystem>
 
 /**
 * Constructor
 */
 Renderer::Renderer() {
 	shaderManager = new ShaderManager();
+	std::cout << "current working directory: " << std::filesystem::current_path() << std::endl;
+	shaderManager->LoadShaders(
+		"Resources/Shaders/fragmentShader.glsl", 
+		"Resources/Shaders/vertexShader.glsl");
+	shaderManager->use();
+
 	meshManager = new MeshManager();
 }
 
@@ -55,7 +62,7 @@ void Renderer::findObjectsToBeRendered() {
 		objectsToRender.clear();
 		
 		// list of gameobjects to check for a breadth-first search of the scene
-		vector<GameObject*> gameObjectsToCheck;		
+		std::vector<GameObject*> gameObjectsToCheck;
 		gameObjectsToCheck.push_back(activeScene->getRootGameObject());
 
 		//breadth first search
@@ -133,14 +140,7 @@ void Renderer::renderObject() {
 			//TODO: refactor mesh code into this algorithm.  Currently, mesh manager
 			// is doing all the work, and texture files have to follow certain
 			// naming conventions to be drawn
-			// 
-			// mesh may have none or one material attached to it
-			
-			// Mesh may have no, one, or multiple textures attached to it
-			
-			// manage the transform
-			
-			// render the mesh
+		setShaderTransformations(*gameObject->getComponentOfType<Transform>());
 
 	}
 	// PSUEDOCODE based on old projects code
@@ -173,9 +173,27 @@ void Renderer::setShaderMaterial() {
 
 /**
 * Update the shader to reflect the meshes position,
-* rotation, and scale
+* rotation, and scale by converting the data into a 4x4 matrix
 */
-void Renderer::setSahderTransformations() {}
+void Renderer::setShaderTransformations(Transform transform) {
+	if (shaderManager != nullptr) {
+
+		glm::mat4 scale = glm::scale(
+			// convert float values into glm vector
+			glm::vec3(transform.xScale, transform.yScale, transform.zScale)
+		);
+
+		glm::mat4 rotationX = glm::rotate(glm::radians(transform.xRot), glm::vec3(1.0f, 0, 0));
+		glm::mat4 rotationY = glm::rotate(glm::radians(transform.yRot), glm::vec3(0, 1.0f, 0));
+		glm::mat4 rotationZ = glm::rotate(glm::radians(transform.zRot), glm::vec3(0, 0, 1.0f));
+		glm::mat4 translation = glm::translate(glm::vec3(transform.xPos, transform.yPos, transform.zPos));
+
+		glm::mat4 modelView = translation * rotationX * rotationY * rotationZ * scale;
+
+		// send the objects position, scale, and rotation to the shader
+		shaderManager->setMat4Value("model", modelView);
+	}
+}
 
 /**
 * Dispatch the MeshManager to setup VBO and VAO objects
@@ -188,14 +206,14 @@ void Renderer::setMesh() {}
 void Renderer::setMaterial() {}
 
 void Renderer::setupLights() {
-	vector<GameObject*> objects;
-	vector<Light*> lights;
+	std::vector<GameObject*> objects;
+	std::vector<Light*> lights;
 
 	// look for all the lights in the scene
 	objects.push_back(activeScene->getRootGameObject());
 	while (objects.size() > 0) {
 		
-		vector<Light*> object_components = objects[0]->getComponentsOfType<Light>();
+		std::vector<Light*> object_components = objects[0]->getComponentsOfType<Light>();
 		for (Light* light : object_components) {
 			lights.push_back(light);
 		}
@@ -208,7 +226,7 @@ void Renderer::setupLights() {
 
 	//send all the lights to the shader
 	for (unsigned int i = 0; i < lights.size(); i++) {
-		string fieldName = "lightSources[" + std::to_string(i) + "].";
+		std::string fieldName = "lightSources[" + std::to_string(i) + "].";
 		Transform transform = lights[i]->getParentGameObject()->transform;
 
 		shaderManager->setVec3Value(fieldName + "position", transform.xPos, transform.yPos, transform.zPos);

@@ -36,9 +36,12 @@
 #include <Context/WindowManager.h>
 #include <SceneManagement/Scene.h>
 
+#include <iostream>
+
+
 #include <vector>
 
-using namespace std;
+
 class Renderer
 {
 public:
@@ -54,7 +57,7 @@ private:
 	MeshManager* meshManager;
 
 	Scene* activeScene;
-	vector<GameObject*> objectsToRender;
+	std::vector<GameObject*> objectsToRender;
 
 	// searches the current scene for any object with a mesh component
 	void findObjectsToBeRendered();
@@ -63,7 +66,7 @@ private:
 	// textures, material, mesh, and transformation
 	void setShaderTexture();
 	void setShaderMaterial();
-	void setSahderTransformations();
+	void setShaderTransformations(Transform transform);
 	void setMesh();
 	void setMaterial();
 	void setupLights();

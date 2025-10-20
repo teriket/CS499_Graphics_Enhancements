@@ -6,8 +6,8 @@
 #include <string>
 #include <iostream>
 #include <algorithm>
+#include <vector>
 
-using namespace std;
 class IComponent;
 class GameObject
 {
@@ -33,8 +33,8 @@ public:
 
 	// get all components of a type attached to an object
 	template <typename T>
-	vector<T*> getComponentsOfType() {
-		vector<T*> results;
+	std::vector<T*> getComponentsOfType() {
+		std::vector<T*> results;
 		// loop through all the components
 		for (IComponent* component : components) {
 			// To test whether the types are the same, try to make a type T object that
@@ -50,19 +50,19 @@ public:
 	void addComponent(IComponent* t_component);
 	
 	GameObject* getParent();
-	vector<GameObject*> getChildren();
+	std::vector<GameObject*> getChildren();
 	GameObject* addChild(GameObject* t_child);
-	vector<IComponent*> getComponents();
+	std::vector<IComponent*> getComponents();
 	int getDepth();
 	void setDepth();
 	void setParent(GameObject* t_parent);
 
 private:
-	vector<IComponent*> components;
+	std::vector<IComponent*> components;
 
 	// Gameobjects live in a tree structure.  Maintain a pointer to parents and children
 	GameObject* parent;
-	vector<GameObject*> children;
+	std::vector<GameObject*> children;
 
 	// how deep in the scene tree this object is
 	int depth = 0;

@@ -32,7 +32,7 @@ GameObject* GameObject::getParent() {
 	return parent;
 }
 
-vector<GameObject*> GameObject::getChildren() {
+std::vector<GameObject*> GameObject::getChildren() {
 	return children;
 }
 
@@ -53,7 +53,7 @@ GameObject* GameObject::addChild(GameObject* t_child) {
 	return t_child;
 }
 
-vector<IComponent*> GameObject::getComponents() {
+std::vector<IComponent*> GameObject::getComponents() {
 	return components;
 }
 

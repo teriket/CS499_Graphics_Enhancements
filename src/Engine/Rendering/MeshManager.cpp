@@ -80,10 +80,12 @@ MeshManager* MeshManager::loadModel() {
 	const aiScene* scene = importer.ReadFile(mesh->filePath, aiProcess_Triangulate | aiProcess_FlipUVs);
 
 	if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) {
-		cout << "ERROR::ASSIMP::" << importer.GetErrorString() << endl;
+		std::cout << "ERROR::ASSIMP::" << importer.GetErrorString() << std::endl;
 		return this;
 	}
 	directory = mesh->filePath.substr(0, mesh->filePath.find_last_of('/'));
+
+	readSubdirectory(scene->mRootNode, scene);
 
 	return this;
 }
@@ -102,10 +104,14 @@ void MeshManager::readSubdirectory(aiNode* node, const aiScene* scene) {
 
 }
 
+/**
+* extract the vertices, indices, and texture coordinates from
+* a mesh object
+*/
 Mesh MeshManager::processMesh(aiMesh* mesh, const aiScene* scene) {
-	vector<Vertex> vertices;
-	vector<unsigned int> indices;
-	vector<Texture> textures;
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+	std::vector<Texture> textures;
 
 	for (unsigned int i = 0; i < mesh->mNumVertices; i++) {
 		Vertex vertex;
@@ -132,6 +138,7 @@ Mesh MeshManager::processMesh(aiMesh* mesh, const aiScene* scene) {
 
 		vertices.push_back(vertex);
 	}
+
 	//process indices
 	for (unsigned int i = 0; i < mesh->mNumFaces; i++) {
 		aiFace face = mesh->mFaces[i];
@@ -143,16 +150,21 @@ Mesh MeshManager::processMesh(aiMesh* mesh, const aiScene* scene) {
 	//process material
 	if (mesh->mMaterialIndex >= 0) {
 		aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-		vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+		std::vector<Texture> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
 		textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
-		vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
+		std::vector<Texture> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
 		textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
 	}
-	return Mesh(vertices, indices, textures);
+
+	this->mesh->vertices = vertices;
+	this->mesh->indices = indices;
+	this->mesh->textures = textures;
+
+	return *this->mesh;
 }
 
-vector<Texture> MeshManager::loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName) {
-	vector<Texture> textures;
+std::vector<Texture> MeshManager::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName) {
+	std::vector<Texture> textures;
 	for (unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
 		aiString str;
 		mat->GetTexture(type, i, &str);
@@ -179,8 +191,8 @@ vector<Texture> MeshManager::loadMaterialTextures(aiMaterial* mat, aiTextureType
 	return textures;
 }
 
-unsigned int MeshManager::TextureFromFile(const char* path, const string& directory) {
-	string filename = string(path);
+unsigned int MeshManager::TextureFromFile(const char* path, const std::string& directory) {
+	std::string filename = std::string(path);
 	filename = directory + '/' + filename;
 
 	unsigned int textureID;

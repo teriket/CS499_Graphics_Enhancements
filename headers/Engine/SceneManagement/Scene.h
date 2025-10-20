@@ -20,10 +20,9 @@ class Scene
 public:
 	Scene();
 	GameObject* getRootGameObject();
-	void buildDemoScene();
 	
 	Camera* activeCamera;
-	string sceneName;
+	std::string sceneName;
 	
 private:
 	GameObject* rootNode;

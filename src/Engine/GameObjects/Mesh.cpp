@@ -11,8 +11,12 @@
 
 #include <SceneManagement/Mesh.h>
 
-Mesh::Mesh(vector<Vertex> vertices, vector<unsigned int> indices, vector<Texture> textures){
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture> textures){
 	this->vertices = vertices;
 	this->indices = indices;
 	this->textures = textures;
+}
+
+Mesh::Mesh(std::string path) {
+	this->filePath = path;
 }

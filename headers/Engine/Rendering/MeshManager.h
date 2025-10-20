@@ -23,7 +23,6 @@
 #include <vector>
 #include <string>
 
-using namespace std;
 #pragma once
 class MeshManager
 {
@@ -36,12 +35,12 @@ public:
 private:
 	Mesh* mesh;
 
-	string directory;
-	vector<Mesh> meshes;
+	std::string directory;
+	std::vector<Mesh> meshes;
 
 	void readSubdirectory(aiNode *node, const aiScene *scene);
 	Mesh processMesh(aiMesh* mesh, const aiScene* scene);
-	vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, string typeName);
-	unsigned int TextureFromFile(const char* path, const string& directory);
+	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName);
+	unsigned int TextureFromFile(const char* path, const std::string& directory);
 };
 
