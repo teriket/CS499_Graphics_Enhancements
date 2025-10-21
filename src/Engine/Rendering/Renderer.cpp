@@ -40,8 +40,8 @@ void Renderer::draw() {
 	glClearColor(0.882f, 0.890f, 0.898f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	findObjectsToBeRendered();
 	pushCameraDataToShader();
+	findObjectsToBeRendered();
 	setupLights();
 	renderObject();
 
@@ -117,12 +117,6 @@ void Renderer::pushCameraDataToShader() {
 		shaderManager->setMat4Value("projection", projection);
 		shaderManager->setVec3Value("viewPosition", activeScene->activeCamera->Position);
 	}
-	//PSEUDOCODE based on old projects algorithm
-	//get camera view matrix
-	// if shader manager is not null
-	//		shaderManager->setMat4Value(viewName, view)
-	//		shaderManager->setMat4Value(projectionName, projection)
-	//		shaderManager->setVec3Value("viewPosition", camera->position)
 }
 
 /**

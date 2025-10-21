@@ -65,12 +65,10 @@ MeshManager* MeshManager::bindMeshData() {
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, textureCoordinates));
 
-
 	return this;
 }
 
 MeshManager* MeshManager::drawMesh() {
-	std::cout << "rendering mesh: vertices: " << mesh->vertices.size() << ", indices: " << mesh->indices.size() << std::endl;
 
 	//draw mesh
 	glBindVertexArray(mesh->VAO);

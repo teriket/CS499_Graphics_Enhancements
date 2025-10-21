@@ -19,9 +19,13 @@ Scene::Scene() {
 
 	//TODO remove this line, for testing purposes
 	rootNode->addComponent(new Mesh("Resources/Meshes/FinalBaseMesh.obj"));
-	rootNode->getComponentOfType<Transform>()->xPos = 1;
-	rootNode->getComponentOfType<Transform>()->yPos = 1;
-	rootNode->getComponentOfType<Transform>()->zPos = 1;
+	rootNode->getComponentOfType<Transform>()->xPos = 0;
+	rootNode->getComponentOfType<Transform>()->yPos = -5;
+	rootNode->getComponentOfType<Transform>()->zPos = -41;
+
+	rootNode->getComponentOfType<Transform>()->xScale = 1;
+	rootNode->getComponentOfType<Transform>()->yScale = 1;
+	rootNode->getComponentOfType<Transform>()->zScale = 1;
 }
 
 /**
