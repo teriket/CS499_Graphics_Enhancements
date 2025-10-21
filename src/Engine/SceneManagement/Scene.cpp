@@ -18,7 +18,10 @@ Scene::Scene() {
 	std::cout << "About to build the demo scene" << std::endl;
 
 	//TODO remove this line, for testing purposes
-	//rootNode->addComponent(new Mesh());
+	rootNode->addComponent(new Mesh("Resources/Meshes/FinalBaseMesh.obj"));
+	rootNode->getComponentOfType<Transform>()->xPos = 1;
+	rootNode->getComponentOfType<Transform>()->yPos = 1;
+	rootNode->getComponentOfType<Transform>()->zPos = 1;
 }
 
 /**

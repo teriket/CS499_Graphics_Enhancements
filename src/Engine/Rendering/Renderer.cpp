@@ -21,8 +21,9 @@ Renderer::Renderer() {
 	shaderManager = new ShaderManager();
 	std::cout << "current working directory: " << std::filesystem::current_path() << std::endl;
 	shaderManager->LoadShaders(
-		"Resources/Shaders/fragmentShader.glsl", 
-		"Resources/Shaders/vertexShader.glsl");
+		"Resources/Shaders/vertexShader.glsl",
+		"Resources/Shaders/fragmentShader.glsl" 
+		);
 	shaderManager->use();
 
 	meshManager = new MeshManager();
@@ -132,29 +133,18 @@ void Renderer::pushCameraDataToShader() {
 void Renderer::renderObject() {
 	// draw each object that has mesh data attached to it
 	for (GameObject* gameObject : objectsToRender) {
+		setShaderTransformations(*gameObject->getComponentOfType<Transform>());
 		meshManager
 			->setMesh(gameObject->getComponentOfType<Mesh>())
 			->loadModel()
-			->bindMeshData();
+			->bindMeshData()
+			->drawMesh();
 
 			//TODO: refactor mesh code into this algorithm.  Currently, mesh manager
 			// is doing all the work, and texture files have to follow certain
 			// naming conventions to be drawn
-		setShaderTransformations(*gameObject->getComponentOfType<Transform>());
 
 	}
-	// PSUEDOCODE based on old projects code
-	//foreach object in scene
-	//glm::vec3 scaleXYZ
-	//float xrotation degrees
-	//float yrotation degrees
-	//float zrotation degrees
-	//position xyz
-	//SetTransformations()
-	//setShaderTexture
-	//setTextureUVscale
-	//setShaderMaterial()
-	//mesh->draw()
 };
 
 /**

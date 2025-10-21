@@ -30,6 +30,7 @@ public:
 	MeshManager* setMesh(Mesh* mesh);
 	MeshManager* loadModel();
 	MeshManager* bindMeshData();
+	MeshManager* drawMesh();
 	
 
 private:

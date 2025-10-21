@@ -65,9 +65,17 @@ MeshManager* MeshManager::bindMeshData() {
 	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, textureCoordinates));
 
-	// combine the VAO, VBO, EBO, and vertexAttribArrays
-	glBindVertexArray(0);
 
+	return this;
+}
+
+MeshManager* MeshManager::drawMesh() {
+	std::cout << "rendering mesh: vertices: " << mesh->vertices.size() << ", indices: " << mesh->indices.size() << std::endl;
+
+	//draw mesh
+	glBindVertexArray(mesh->VAO);
+	glDrawElements(GL_TRIANGLES, static_cast<unsigned int>(mesh->indices.size()), GL_UNSIGNED_INT, 0);
+	glBindVertexArray(0);
 	return this;
 }
 
@@ -159,6 +167,7 @@ Mesh MeshManager::processMesh(aiMesh* mesh, const aiScene* scene) {
 	this->mesh->vertices = vertices;
 	this->mesh->indices = indices;
 	this->mesh->textures = textures;
+
 
 	return *this->mesh;
 }
